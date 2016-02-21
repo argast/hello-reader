@@ -1,0 +1,4 @@
+web:
+  image: pfws-service:1.0
+  ports:
+    - "9090:9090"
