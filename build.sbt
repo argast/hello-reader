@@ -4,19 +4,19 @@ import Packaging._
 import Pact._
 
 lazy val root = (project in file("."))
-  .aggregate(`pfws-service`, `pfws-integration-tests`, `pfws-performance-tests`)
+  .aggregate(`hello-reader-service`, `hello-reader-integration-tests`, `hello-reader-performance-tests`)
   .settings(Pact.pactSettings: _*)
 
-lazy val `pfws-service` = (project in file("pfws-service"))
+lazy val `hello-reader-service` = (project in file("hello-reader-service"))
   .enablePlugins(JavaServerAppPackaging, DockerPlugin)
   .settings(packagingSettings: _*)
   .settings(commonSettings: _*)
   .settings(serviceDependencies: _*)
 
-lazy val `pfws-integration-tests` = (project in file("pfws-integration-tests"))
+lazy val `hello-reader-integration-tests` = (project in file("hello-reader-integration-tests"))
   .settings(commonSettings: _*)
   .settings(integrationTestsDependencies: _*)
 
-lazy val `pfws-performance-tests` = (project in file("pfws-performance-tests"))
+lazy val `hello-reader-performance-tests` = (project in file("hello-reader-performance-tests"))
   .settings(commonSettings: _*)
   .settings(performanceTestsDependencies: _*)
