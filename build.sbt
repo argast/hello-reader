@@ -1,9 +1,11 @@
 import CommonSettings._
 import Dependencies._
 import Packaging._
+import Pact._
 
 lazy val root = (project in file("."))
   .aggregate(`pfws-service`, `pfws-integration-tests`, `pfws-performance-tests`)
+  .settings(Pact.pactSettings: _*)
 
 lazy val `pfws-service` = (project in file("pfws-service"))
   .enablePlugins(JavaServerAppPackaging, DockerPlugin)

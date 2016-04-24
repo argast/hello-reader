@@ -1,8 +1,11 @@
-package main.scala
+package pfws
 
 import scalaz.Scalaz._
-import scalaz._
+import scalaz.{EitherT, Reader, _}
 
+/**
+  * Created by pawel on 16/04/2016.
+  */
 object Test extends App {
 
   type Result = String \/ Int
@@ -21,6 +24,12 @@ object Test extends App {
     EitherT[WriterType, String, Int](ww)
   }
 
+  import Database._
+  val a = get("aa")
+
+  val read: Reader[Config, Int] = for {
+    s <- get("")
+  } yield s.toInt
 
 
   val aaa = for {
@@ -45,7 +54,6 @@ object Test extends App {
   class Service {
     val calculate = (l: List[Int]) => l.sum
   }
-
 
 //  val repo = new Repository
 //  val service = new Service

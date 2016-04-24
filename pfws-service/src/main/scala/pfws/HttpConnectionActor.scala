@@ -1,6 +1,8 @@
+package pfws
+
 
 import akka.actor.Props
-import spray.routing.{Route, HttpServiceActor}
+import spray.routing.{HttpServiceActor, Route}
 
 
 class HttpConnectionActor(routes: Route*) extends HttpServiceActor {

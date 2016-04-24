@@ -1,15 +1,18 @@
+package pfws
+
 import akka.actor.ActorSystem
 import akka.pattern.CircuitBreaker
 
-import scala.concurrent.duration._
+import spray.client.pipelining._
 import scala.concurrent.ExecutionContext.Implicits.global
 
-/**
-  *
-  * Created by pawel on 30/01/2016.
-  */
 trait Config {
 
   implicit val system: ActorSystem
 
+  val mongo = Map[String, String]("aa" -> "Hello")
+
+  lazy val pipeline = sendReceive
+
+  val greetingUrl = "http://localhost:9090"
 }
