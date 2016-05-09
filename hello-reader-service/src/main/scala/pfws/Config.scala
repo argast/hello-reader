@@ -8,9 +8,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 trait Config {
 
-  implicit val system: ActorSystem
+  val port = 9090
 
-  val mongo = Map[String, String]("aa" -> "Hello")
+  implicit val actorSystem = ActorSystem("hello-reader")
+
+  val database = Map[String, String]("separator" -> ", ")
 
   lazy val pipeline = sendReceive
 

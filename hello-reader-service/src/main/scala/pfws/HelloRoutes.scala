@@ -5,9 +5,9 @@ import spray.routing.Directives._
 import spray.routing._
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scalaz.Scalaz._
 import scalaz._
-import scalaz.concurrent.{Future => ZFuture}
+import Scalaz._
+import GreetingService._
 
 object HelloRoutes {
 
@@ -18,7 +18,10 @@ object HelloRoutes {
       }
     } ~ path("hello") {
       completeReader {
-        GreetingService.getGreeting.map(_ + " world!")
+        for {
+          greeting <- getGreeting
+          separator <- Database.get("separator")
+        } yield greeting + separator + "world!"
       }
     }
   }

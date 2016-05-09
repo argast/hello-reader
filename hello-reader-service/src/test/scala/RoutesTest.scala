@@ -15,15 +15,13 @@ class RoutesTest extends FunSpec with ScalatestRouteTest with Matchers {
 
   val mock = MockProviderConfig.createDefault()
 
-  implicit val config = new Config {
-    override implicit val system: ActorSystem = ActorSystem()
-    override val mongo: Map[String, String] = Map("aa" -> "qq")
+  implicit val config = new TestConfig {
     override val greetingUrl: String = mock.url
   }
 
   val noop = (_: Unit) => None
 
-  describe("pfws.Hello routes") {
+  describe("Hello routes") {
     it("should return correct response") {
 
       val pact = PactFragmentBuilder(new Consumer("greeting"))
@@ -34,12 +32,11 @@ class RoutesTest extends FunSpec with ScalatestRouteTest with Matchers {
         .duringConsumerSpec(mock) ({
           Get("/hello") ~> HelloRoutes.routes ~> check {
             status should equal (StatusCodes.OK)
-            body.asString should equal ("Hello world!")
+            body.asString should equal ("Hello| world!")
           }
         }, noop)
 
       pact should equal (PactVerified)
     }
   }
-
 }

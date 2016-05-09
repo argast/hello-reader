@@ -7,12 +7,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object Database {
 
   def get(key: String): Reader[Config, String] =  Reader { config =>
-    config.mongo(key)
+    config.database(key)
   }
 
   def getDefault(key: String, default: String): ReaderT[Future, Config, String] = ReaderT { config =>
     Future {
-      config.mongo.getOrElse(key, default)
+      config.database.getOrElse(key, default)
     }
   }
 
